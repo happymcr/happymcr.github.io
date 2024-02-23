@@ -1,0 +1,8 @@
+#web_bg {
+    /* 背景图像的地址（url括号里）  */
+    background: url("https://cn.bing.com/images/search?view=detailV2&ccid=%2f4Gvnz66&id=063F4E64D99A7931E1D0A93A904F8DD67D2B9B5D&thid=OIP._4Gvnz66aMzvFTqhHeWAZwHaEK&mediaurl=https%3a%2f%2fp3-juejin.byteimg.com%2ftos-cn-i-k3u1fbpfcp%2f655e817183c54dd291360823577d4be1%7etplv-k3u1fbpfcp-zoom-crop-mark%3a4536%3a4536%3a4536%3a2553.image%3f&exph=2552&expw=4534&q=hexo+butterfly+%e8%83%8c%e6%99%af&simid=608035192147307573&FORM=IRPRST&ck=9DCC3222CA2840E094A3365C71F58B88&selectedIndex=147&itb=0&ajaxhist=0&ajaxserp=0");
+    /* 背景图像不重复 */
+    background-repeat: no-repeat;
+    /* 背景图像大小 */
+    background-size: cover;
+  }
