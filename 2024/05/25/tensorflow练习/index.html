@@ -1,0 +1,941 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TensorFlow练习 | 小马快跑</title><meta name="author" content="Ma Chenru"><meta name="copyright" content="Ma Chenru"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="导包12import tensorflow as tfimport tensorflow.compat.v1 as tf1  TensorFlow常用基本函数tf.zeros12zeros_tensor &#x3D; tf.zeros((2, 3), dtype&#x3D;tf.float32)zeros_tensor   &lt;tf.Tensor: shape&#x3D;(2, 3), dtype&#x3D;float32, num">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow练习">
+<meta property="og:url" content="https://happymcr.gitee.io/2024/05/25/tensorflow%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="小马快跑">
+<meta property="og:description" content="导包12import tensorflow as tfimport tensorflow.compat.v1 as tf1  TensorFlow常用基本函数tf.zeros12zeros_tensor &#x3D; tf.zeros((2, 3), dtype&#x3D;tf.float32)zeros_tensor   &lt;tf.Tensor: shape&#x3D;(2, 3), dtype&#x3D;float32, num">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://happymcr.gitee.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2024-05-25T10:05:40.419Z">
+<meta property="article:modified_time" content="2024-05-25T10:08:57.906Z">
+<meta property="article:author" content="Ma Chenru">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://happymcr.gitee.io/img/avatar2.jpg"><link rel="shortcut icon" href="/img/favicon2.png"><link rel="canonical" href="https://happymcr.gitee.io/2024/05/25/tensorflow%E7%BB%83%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TensorFlow练习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-25 18:08:57'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 博客</span></a></div><div class="menus_item"><a class="site-page" href="/harvest/"><i class="fa-fw fas fa-pencil"></i><span> 心得</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background2.png')"><nav id="nav"><span id="blog-info"><a href="/" title="小马快跑"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 博客</span></a></div><div class="menus_item"><a class="site-page" href="/harvest/"><i class="fa-fw fas fa-pencil"></i><span> 心得</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">TensorFlow练习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-25T10:05:40.419Z" title="发表于 2024-05-25 18:05:40">2024-05-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-25T10:08:57.906Z" title="更新于 2024-05-25 18:08:57">2024-05-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="TensorFlow练习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> tensorflow.compat.v1 <span class="keyword">as</span> tf1</span><br></pre></td></tr></table></figure>
+
+<h2 id="TensorFlow常用基本函数"><a href="#TensorFlow常用基本函数" class="headerlink" title="TensorFlow常用基本函数"></a>TensorFlow常用基本函数</h2><h3 id="tf-zeros"><a href="#tf-zeros" class="headerlink" title="tf.zeros"></a>tf.zeros</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zeros_tensor = tf.zeros((<span class="number">2</span>, <span class="number">3</span>), dtype=tf.float32)</span><br><span class="line">zeros_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[0., 0., 0.],
+       [0., 0., 0.]], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf-ones"><a href="#tf-ones" class="headerlink" title="tf.ones"></a>tf.ones</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ones_tensor = tf.ones((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">ones_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2, 2), dtype=float32, numpy=
+array([[1., 1.],
+       [1., 1.]], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf-eye"><a href="#tf-eye" class="headerlink" title="tf.eye"></a>tf.eye</h3><ul>
+<li>创建单位矩阵</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eye_tensor = tf.eye(<span class="number">3</span>, dtype=tf.float32)</span><br><span class="line">eye_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3, 3), dtype=float32, numpy=
+array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf-fill"><a href="#tf-fill" class="headerlink" title="tf.fill"></a>tf.fill</h3><ul>
+<li>按指定值填充指定形状矩阵</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fill_tensor = tf.fill((<span class="number">2</span>, <span class="number">3</span>), <span class="number">6</span>)</span><br><span class="line">fill_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=int32, numpy=
+array([[6, 6, 6],
+       [6, 6, 6]])&gt;
+</code></pre>
+<h3 id="tf-random-normal"><a href="#tf-random-normal" class="headerlink" title="tf.random.normal"></a>tf.random.normal</h3><ul>
+<li>填充指定形状的正态分布的矩阵</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">normal_tensor = tf.random.normal((<span class="number">2</span>, <span class="number">3</span>), mean=<span class="number">0.0</span>, stddev=<span class="number">1.0</span>)</span><br><span class="line">normal_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[-1.348891  , -1.075135  , -0.02519988],
+       [-1.3450651 , -0.05325584,  0.0287682 ]], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf-random-truncated-normal"><a href="#tf-random-truncated-normal" class="headerlink" title="tf.random.truncated_normal"></a>tf.random.truncated_normal</h3><ul>
+<li>生成截断正态分布的随机数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truncated_normal_tensor = tf.random.truncated_normal((<span class="number">2</span>, <span class="number">3</span>), mean=<span class="number">0.0</span>, stddev=<span class="number">1.0</span>)</span><br><span class="line">truncated_normal_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[-0.7701288 , -0.7730948 ,  0.7854359 ],
+       [ 0.03390906, -0.3608888 ,  0.6861247 ]], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf-random-uniform"><a href="#tf-random-uniform" class="headerlink" title="tf.random.uniform"></a>tf.random.uniform</h3><ul>
+<li>创建指定形状的均匀分布随机张量的函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uniform_tensor = tf.random.uniform((<span class="number">2</span>, <span class="number">3</span>), minval=<span class="number">0</span>, maxval=<span class="number">1</span>)</span><br><span class="line">uniform_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2, 3), dtype=float32, numpy=
+array([[0.16504574, 0.70401144, 0.28877687],
+       [0.27201843, 0.12744772, 0.42624414]], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf-random-shuffle"><a href="#tf-random-shuffle" class="headerlink" title="tf.random.shuffle"></a>tf.random.shuffle</h3><ul>
+<li>沿着张量的第一维，随机重新排列张量中的元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shuffle_tensor = tf.constant([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line">shuffled_tensor = tf.random.shuffle(shuffle_tensor)</span><br><span class="line">shuffled_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3, 2), dtype=int32, numpy=
+array([[5, 6],
+       [3, 4],
+       [1, 2]])&gt;
+</code></pre>
+<h3 id="tf-strings-to-number"><a href="#tf-strings-to-number" class="headerlink" title="tf.strings.to_number"></a>tf.strings.to_number</h3><ul>
+<li>字符串转为数字</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string_tensor = tf.constant(<span class="string">&quot;123&quot;</span>) <span class="comment"># 字符串常量</span></span><br><span class="line">number_tensor = tf.strings.to_number(string_tensor)</span><br><span class="line">number_tensor</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(), dtype=float32, numpy=123.0&gt;
+</code></pre>
+<h3 id="tf1-to-double"><a href="#tf1-to-double" class="headerlink" title="tf1.to_double"></a>tf1.to_double</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = tf.constant([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">double_x = tf1.to_double(x) <span class="comment"># 将张量转换为64位浮点类型</span></span><br><span class="line">double_x</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From D:\software\anaconda3\envs\tf\lib\site-packages\tensorflow\python\util\dispatch.py:1176: to_double (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+
+&lt;tf.Tensor: shape=(3,), dtype=float64, numpy=array([1., 2., 3.])&gt;
+</code></pre>
+<h3 id="tf1-to-float"><a href="#tf1-to-float" class="headerlink" title="tf1.to_float"></a>tf1.to_float</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">float_x = tf1.to_float(x) <span class="comment"># 将张量转换为32位浮点类型型</span></span><br><span class="line">float_x</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From D:\software\anaconda3\envs\tf\lib\site-packages\tensorflow\python\util\dispatch.py:1176: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+
+&lt;tf.Tensor: shape=(3,), dtype=float32, numpy=array([1., 2., 3.], dtype=float32)&gt;
+</code></pre>
+<h3 id="tf1-to-int32"><a href="#tf1-to-int32" class="headerlink" title="tf1.to_int32"></a>tf1.to_int32</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int32_x = tf1.to_int32(x) <span class="comment"># 将张量转换为32位整型</span></span><br><span class="line">int32_x</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From D:\software\anaconda3\envs\tf\lib\site-packages\tensorflow\python\util\dispatch.py:1176: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+
+&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([1, 2, 3])&gt;
+</code></pre>
+<h3 id="tf1-to-int64"><a href="#tf1-to-int64" class="headerlink" title="tf1.to_int64"></a>tf1.to_int64</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int64_x = tf1.to_int64(x) <span class="comment"># 将张量转换为64位整型</span></span><br><span class="line">int64_x</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:From D:\software\anaconda3\envs\tf\lib\site-packages\tensorflow\python\util\dispatch.py:1176: to_int64 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead.
+
+&lt;tf.Tensor: shape=(3,), dtype=int64, numpy=array([1, 2, 3], dtype=int64)&gt;
+</code></pre>
+<h3 id="tf-cast"><a href="#tf-cast" class="headerlink" title="tf.cast"></a>tf.cast</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">double_x = tf.cast(x, tf.float64) <span class="comment"># 转为64位浮点类型</span></span><br><span class="line">double_x</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3,), dtype=float64, numpy=array([1., 2., 3.])&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int_x = tf.cast(x, tf.int32) <span class="comment"># 转为32位整型</span></span><br><span class="line">int_x</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([1, 2, 3])&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">string = <span class="string">&#x27;12.3&#x27;</span></span><br><span class="line">n1 = tf1.string_to_number(string)   </span><br><span class="line"><span class="built_in">print</span>(n1)</span><br><span class="line"></span><br><span class="line">d1 = tf1.cast(x, tf.double) </span><br><span class="line"><span class="built_in">print</span>(d1)</span><br><span class="line"></span><br><span class="line">f1 = tf1.cast(x, tf.float32)    </span><br><span class="line"><span class="built_in">print</span>(f1)</span><br><span class="line"></span><br><span class="line">i1 = tf1.cast(x, tf.int32)  </span><br><span class="line"><span class="built_in">print</span>(i1)</span><br><span class="line"></span><br><span class="line">i2 = tf1.cast(x,tf.int64)   </span><br><span class="line"><span class="built_in">print</span>(i2)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor(12.3, shape=(), dtype=float32)
+tf.Tensor([1. 2. 3.], shape=(3,), dtype=float64)
+tf.Tensor([1. 2. 3.], shape=(3,), dtype=float32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int32)
+tf.Tensor([1 2 3], shape=(3,), dtype=int64)
+</code></pre>
+<h3 id="tf-shape"><a href="#tf-shape" class="headerlink" title="tf.shape"></a>tf.shape</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = [[[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]], [[<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>]]] <span class="comment"># 2*2*3</span></span><br><span class="line">tf.shape(t)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([2, 2, 3])&gt;
+</code></pre>
+<h3 id="tf-size"><a href="#tf-size" class="headerlink" title="tf.size"></a>tf.size</h3><ul>
+<li>计算张量 x 中元素的总数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = [[[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]], [[<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>]]]</span><br><span class="line">tf.size(t)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(), dtype=int32, numpy=12&gt;
+</code></pre>
+<h3 id="tf-rank"><a href="#tf-rank" class="headerlink" title="tf.rank"></a>tf.rank</h3><ul>
+<li>获取张量的秩（rank），也就是张量的维度数量</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = [[[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]], [[<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>]]]</span><br><span class="line">tf.rank(t)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(), dtype=int32, numpy=3&gt;
+</code></pre>
+<h3 id="tf-reshape"><a href="#tf-reshape" class="headerlink" title="tf.reshape"></a>tf.reshape</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">tf.shape(t)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(1,), dtype=int32, numpy=array([9])&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>[1, 2, 3, 4, 5, 6, 7, 8, 9]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t2 = tf.reshape(t, [<span class="number">3</span>, <span class="number">3</span>])</span><br><span class="line">tf.shape(t2)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2,), dtype=int32, numpy=array([3, 3])&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t2</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3, 3), dtype=int32, numpy=
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t3 = tf.reshape(t, [<span class="number">3</span>, -<span class="number">1</span>, <span class="number">3</span>])</span><br><span class="line">tf.shape(t3)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([3, 1, 3])&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t3</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(3, 1, 3), dtype=int32, numpy=
+array([[[1, 2, 3]],
+
+       [[4, 5, 6]],
+
+       [[7, 8, 9]]])&gt;
+</code></pre>
+<h3 id="tf-expand-dims"><a href="#tf-expand-dims" class="headerlink" title="tf.expand_dims"></a>tf.expand_dims</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">t = [<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">t1 = tf.shape(tf.expand_dims(t, <span class="number">0</span>))</span><br><span class="line">t2 = tf.shape(tf.expand_dims(t, <span class="number">1</span>))</span><br><span class="line">t3 = tf.shape(tf.expand_dims(t, -<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(t1)</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br><span class="line"><span class="built_in">print</span>(t3)</span><br><span class="line"></span><br><span class="line">t4 = tf.ones([<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>])</span><br><span class="line">t5 = tf.shape(tf.expand_dims(t4, <span class="number">0</span>))</span><br><span class="line">t6 = tf.shape(tf.expand_dims(t4, <span class="number">2</span>))</span><br><span class="line">t7 = tf.shape(tf.expand_dims(t4, <span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(t4)</span><br><span class="line"><span class="built_in">print</span>(t5)</span><br><span class="line"><span class="built_in">print</span>(t6)</span><br><span class="line"><span class="built_in">print</span>(t7)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor([1 2], shape=(2,), dtype=int32)
+tf.Tensor([2 1], shape=(2,), dtype=int32)
+tf.Tensor([2 1], shape=(2,), dtype=int32)
+tf.Tensor(
+[[[1. 1. 1. 1. 1.]
+  [1. 1. 1. 1. 1.]
+  [1. 1. 1. 1. 1.]]
+
+ [[1. 1. 1. 1. 1.]
+  [1. 1. 1. 1. 1.]
+  [1. 1. 1. 1. 1.]]], shape=(2, 3, 5), dtype=float32)
+tf.Tensor([1 2 3 5], shape=(4,), dtype=int32)
+tf.Tensor([2 3 1 5], shape=(4,), dtype=int32)
+tf.Tensor([2 3 5 1], shape=(4,), dtype=int32)
+</code></pre>
+<h3 id="tf-slice"><a href="#tf-slice" class="headerlink" title="tf.slice"></a>tf.slice</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">t = [[[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]],[[<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>]],[[<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>] ,[<span class="number">6</span>, <span class="number">6</span>, <span class="number">6</span>]]]</span><br><span class="line">t1 = tf.<span class="built_in">slice</span>(t, [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>]) <span class="comment"># 从索引 [1,0,0] 处开始，沿着各个维度分别取长度为 [1,1,3] 的切片</span></span><br><span class="line">t2 = tf.<span class="built_in">slice</span>(t, [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) <span class="comment"># 从索引 [1,0,0] 处开始，沿着各个维度分别取长度为 [1,2,3] 的切片</span></span><br><span class="line">t3 = tf.<span class="built_in">slice</span>(t, [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>]) <span class="comment"># 从索引 [1,0,0] 处开始，沿着各个维度分别取长度为 [2,1,3] 的切片</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(t1)</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br><span class="line"><span class="built_in">print</span>(t3)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor([[[3 3 3]]], shape=(1, 1, 3), dtype=int32)
+tf.Tensor(
+[[[3 3 3]
+  [4 4 4]]], shape=(1, 2, 3), dtype=int32)
+tf.Tensor(
+[[[3 3 3]]
+
+ [[5 5 5]]], shape=(2, 1, 3), dtype=int32)
+</code></pre>
+<h3 id="tf-split"><a href="#tf-split" class="headerlink" title="tf.split"></a>tf.split</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">t = tf.ones([<span class="number">5</span>,<span class="number">30</span>])</span><br><span class="line">t1, t2, t3 = tf.split(t,<span class="number">3</span>,<span class="number">1</span>) <span class="comment"># axis=1 表示沿着第二个维度进行分割</span></span><br><span class="line"><span class="built_in">print</span>(tf.shape(t1))</span><br><span class="line"><span class="built_in">print</span>(tf.shape(t2))</span><br><span class="line"><span class="built_in">print</span>(tf.shape(t3))</span><br><span class="line"></span><br><span class="line">t = tf.ones([<span class="number">15</span>,<span class="number">30</span>])</span><br><span class="line">t1, t2, t3 = tf.split(t,<span class="number">3</span>,<span class="number">0</span>) <span class="comment"># axis=0 表示沿着第一个维度进行分割</span></span><br><span class="line"><span class="built_in">print</span>(tf.shape(t1))</span><br><span class="line"><span class="built_in">print</span>(tf.shape(t2))</span><br><span class="line"><span class="built_in">print</span>(tf.shape(t3))</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor([ 5 10], shape=(2,), dtype=int32)
+tf.Tensor([ 5 10], shape=(2,), dtype=int32)
+tf.Tensor([ 5 10], shape=(2,), dtype=int32)
+tf.Tensor([ 5 30], shape=(2,), dtype=int32)
+tf.Tensor([ 5 30], shape=(2,), dtype=int32)
+tf.Tensor([ 5 30], shape=(2,), dtype=int32)
+</code></pre>
+<h3 id="tf-concat"><a href="#tf-concat" class="headerlink" title="tf.concat"></a>tf.concat</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">t1 = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]</span><br><span class="line">t2 = [[<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>], [<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>]]</span><br><span class="line">t3 = tf.concat([t1, t2], <span class="number">0</span>) <span class="comment"># 将 t1 和 t2 沿着第一个维度进行拼接，得到新的张量 t3</span></span><br><span class="line">t4 = tf.concat([t1, t2], <span class="number">1</span>) <span class="comment"># 将 t1 和 t2 沿着第二个维度进行拼接，得到新的张量 t4</span></span><br><span class="line"><span class="built_in">print</span>(t3)</span><br><span class="line"><span class="built_in">print</span>(t4)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor(
+[[ 1  2  3]
+ [ 4  5  6]
+ [ 7  8  9]
+ [10 11 12]], shape=(4, 3), dtype=int32)
+tf.Tensor(
+[[ 1  2  3  7  8  9]
+ [ 4  5  6 10 11 12]], shape=(2, 6), dtype=int32)
+</code></pre>
+<h3 id="tf-stack"><a href="#tf-stack" class="headerlink" title="tf.stack"></a>tf.stack</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x = [<span class="number">1</span>, <span class="number">4</span>]</span><br><span class="line">y = [<span class="number">2</span>, <span class="number">5</span>]</span><br><span class="line">z = [<span class="number">3</span>, <span class="number">6</span>]</span><br><span class="line">t1 =tf.stack([x, y, z]) <span class="comment"># 沿着第一维stack </span></span><br><span class="line"><span class="built_in">print</span>(t1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 沿着第二维stack</span></span><br><span class="line">t2 = tf.stack([x, y, z], axis=<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 沿着第一维stack</span></span><br><span class="line">t3 = tf.stack([x, y, z])</span><br><span class="line"><span class="built_in">print</span>(t3)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor(
+[[1 4]
+ [2 5]
+ [3 6]], shape=(3, 2), dtype=int32)
+tf.Tensor(
+[[1 2 3]
+ [4 5 6]], shape=(2, 3), dtype=int32)
+tf.Tensor(
+[[1 4]
+ [2 5]
+ [3 6]], shape=(3, 2), dtype=int32)
+</code></pre>
+<h3 id="tf-reverse"><a href="#tf-reverse" class="headerlink" title="tf.reverse"></a>tf.reverse</h3><ul>
+<li>按照指定的维度对张量进行翻转操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">t = [[[[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">[ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>],</span><br><span class="line">[ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>]],</span><br><span class="line">[[<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>],</span><br><span class="line">[<span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>],</span><br><span class="line">[<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>]]]]</span><br><span class="line"></span><br><span class="line">dims = [<span class="number">0</span>] </span><br><span class="line">t0 = tf.reverse(t, dims)</span><br><span class="line"><span class="built_in">print</span>(t0)</span><br><span class="line"></span><br><span class="line">dims = [<span class="number">1</span>]</span><br><span class="line">t1 = tf.reverse(t, dims)</span><br><span class="line"><span class="built_in">print</span>(t1)</span><br><span class="line"></span><br><span class="line">dims = [<span class="number">2</span>] </span><br><span class="line">t2 = tf.reverse(t, dims)</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br><span class="line"></span><br><span class="line">dims = [<span class="number">3</span>] </span><br><span class="line">t3 = tf.reverse(t, dims)</span><br><span class="line"><span class="built_in">print</span>(t3)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor(
+[[[[ 0  1  2  3]
+   [ 4  5  6  7]
+   [ 8  9 10 11]]
+
+  [[12 13 14 15]
+   [16 17 18 19]
+   [20 21 22 23]]]], shape=(1, 2, 3, 4), dtype=int32)
+tf.Tensor(
+[[[[12 13 14 15]
+   [16 17 18 19]
+   [20 21 22 23]]
+
+  [[ 0  1  2  3]
+   [ 4  5  6  7]
+   [ 8  9 10 11]]]], shape=(1, 2, 3, 4), dtype=int32)
+tf.Tensor(
+[[[[ 8  9 10 11]
+   [ 4  5  6  7]
+   [ 0  1  2  3]]
+
+  [[20 21 22 23]
+   [16 17 18 19]
+   [12 13 14 15]]]], shape=(1, 2, 3, 4), dtype=int32)
+tf.Tensor(
+[[[[ 3  2  1  0]
+   [ 7  6  5  4]
+   [11 10  9  8]]
+
+  [[15 14 13 12]
+   [19 18 17 16]
+   [23 22 21 20]]]], shape=(1, 2, 3, 4), dtype=int32)
+</code></pre>
+<h3 id="tf-transpose"><a href="#tf-transpose" class="headerlink" title="tf.transpose"></a>tf.transpose</h3><ul>
+<li>对一个二维数组进行转置操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]</span><br><span class="line">t1 = tf.transpose(t) </span><br><span class="line">t2 = tf.transpose(t, perm=[<span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(t1)</span><br><span class="line"><span class="built_in">print</span>(t2)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor(
+[[1 4]
+ [2 5]
+ [3 6]], shape=(3, 2), dtype=int32)
+tf.Tensor(
+[[1 4]
+ [2 5]
+ [3 6]], shape=(3, 2), dtype=int32)
+</code></pre>
+<h3 id="tf-gather"><a href="#tf-gather" class="headerlink" title="tf.gather"></a>tf.gather</h3><ul>
+<li>获取指定索引处的元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">params = tf.constant([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>])</span><br><span class="line">indices = [<span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line">result = tf.gather(params, indices) <span class="comment"># 使用 tf.gather 获取指定索引处的元素</span></span><br><span class="line">result.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([20, 40])
+</code></pre>
+<h3 id="tf-one-hot"><a href="#tf-one-hot" class="headerlink" title="tf.one_hot"></a>tf.one_hot</h3><ul>
+<li>将给定的整数张量转换为 one-hot 编码的张量</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">indices = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">depth = <span class="number">3</span></span><br><span class="line">result = tf.one_hot(indices, depth) <span class="comment"># 使用 tf.one_hot 对索引进行 one-hot 编码</span></span><br><span class="line">result.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]], dtype=float32)
+</code></pre>
+<h3 id="tf-unique"><a href="#tf-unique" class="headerlink" title="tf.unique"></a>tf.unique</h3><ul>
+<li>去重</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">8</span>]</span><br><span class="line">y, idx = tf.unique(t)</span><br><span class="line"><span class="built_in">print</span>(y)</span><br><span class="line"><span class="built_in">print</span>(idx)</span><br></pre></td></tr></table></figure>
+
+<pre><code>tf.Tensor([1 2 4 7 8], shape=(5,), dtype=int32)
+tf.Tensor([0 0 1 2 2 2 3 4 4], shape=(9,), dtype=int32)
+</code></pre>
+<h3 id="tf-linalg-diag"><a href="#tf-linalg-diag" class="headerlink" title="tf.linalg.diag"></a>tf.linalg.diag</h3><ul>
+<li>创建一个对角矩阵</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">diagonal = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">diag_matrix = tf.linalg.diag(diagonal)</span><br><span class="line">diag_matrix.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[1, 0, 0],
+       [0, 2, 0],
+       [0, 0, 3]])
+</code></pre>
+<h3 id="tf-linalg-trace"><a href="#tf-linalg-trace" class="headerlink" title="tf.linalg.trace"></a>tf.linalg.trace</h3><ul>
+<li>计算矩阵的迹</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">matrix = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">          [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>],</span><br><span class="line">          [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]]</span><br><span class="line">trace = tf.linalg.trace(matrix)</span><br><span class="line">trace.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>15
+</code></pre>
+<h3 id="tf-linalg-det"><a href="#tf-linalg-det" class="headerlink" title="tf.linalg.det"></a>tf.linalg.det</h3><ul>
+<li>计算方阵的行列式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">matrix = tf.constant([[<span class="number">1.0</span>, <span class="number">2.0</span>],</span><br><span class="line">                      [<span class="number">3.0</span>, <span class="number">4.0</span>]])</span><br><span class="line">determinant = tf.linalg.det(matrix)</span><br><span class="line">determinant.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>-2.0
+</code></pre>
+<h3 id="tf-matmul"><a href="#tf-matmul" class="headerlink" title="tf.matmul"></a>tf.matmul</h3><ul>
+<li>矩阵相乘</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">matrix_a = [[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">            [<span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line">matrix_b = [[<span class="number">5</span>, <span class="number">6</span>],</span><br><span class="line">            [<span class="number">7</span>, <span class="number">8</span>]]</span><br><span class="line">result = tf.matmul(matrix_a, matrix_b)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result.numpy())</span><br></pre></td></tr></table></figure>
+
+<pre><code>[[19 22]
+ [43 50]]
+</code></pre>
+<h3 id="tf-complex"><a href="#tf-complex" class="headerlink" title="tf.complex"></a>tf.complex</h3><p>将实部和虚部转换为复数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">real = tf.constant([<span class="number">2.25</span>, <span class="number">3.25</span>])</span><br><span class="line">imag = tf.constant([<span class="number">4.75</span>, <span class="number">5.75</span>])</span><br><span class="line">tf.<span class="built_in">complex</span>(real, imag)  <span class="comment"># [[2.25 + 4.75j], [3.25 + 5.75j]]</span></span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tf.Tensor: shape=(2,), dtype=complex64, numpy=array([2.25+4.75j, 3.25+5.75j], dtype=complex64)&gt;
+</code></pre>
+<h3 id="tf-abs"><a href="#tf-abs" class="headerlink" title="tf.abs"></a>tf.abs</h3><ul>
+<li>计算复数绝对值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">complex_num = tf.constant(<span class="number">3.0</span> + <span class="number">4.0j</span>)</span><br><span class="line">abs_value = tf.<span class="built_in">abs</span>(complex_num)</span><br><span class="line">abs_value.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>5.0
+</code></pre>
+<h3 id="tf-math-conj"><a href="#tf-math-conj" class="headerlink" title="tf.math.conj"></a>tf.math.conj</h3><ul>
+<li>计算复数的共轭</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">complex_num = tf.constant(<span class="number">3.0</span> + <span class="number">4.0j</span>)</span><br><span class="line">conj_value = tf.math.conj(complex_num)</span><br><span class="line">conj_value.numpy()</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>(3-4j)
+</code></pre>
+<h2 id="构造神经网络预测糖尿病数据集"><a href="#构造神经网络预测糖尿病数据集" class="headerlink" title="构造神经网络预测糖尿病数据集"></a>构造神经网络预测糖尿病数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据导入与处理"><a href="#数据导入与处理" class="headerlink" title="数据导入与处理"></a>数据导入与处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataset = numpy.loadtxt(<span class="string">&quot;./pima-indians-diabetes.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>) <span class="comment"># 加载数据</span></span><br><span class="line">dataset</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[ 0.63994726,  0.86604475, -0.03198993, ...,  0.46849198,
+         1.4259954 ,  1.        ],
+       [-0.84488505, -1.20506583, -0.5283186 , ..., -0.36506078,
+        -0.19067191,  0.        ],
+       [ 1.23388019,  2.01666174, -0.69376149, ...,  0.60439732,
+        -0.10558415,  1.        ],
+       ...,
+       [ 0.3429808 , -0.02157407, -0.03198993, ..., -0.68519336,
+        -0.27575966,  0.        ],
+       [-0.84488505,  0.14279979, -1.02464727, ..., -0.37110101,
+         1.17073215,  1.        ],
+       [-0.84488505, -0.94206766, -0.19743282, ..., -0.47378505,
+        -0.87137393,  0.        ]])
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X = dataset[:,<span class="number">0</span>:<span class="number">8</span>] <span class="comment"># 特征</span></span><br><span class="line">Y = dataset[:,<span class="number">8</span>] <span class="comment"># 标签</span></span><br><span class="line">X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>) <span class="comment"># 训练测试集划分</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><ul>
+<li>输入层：8 维</li>
+<li>隐藏层（全连接层）：12 个神经元，激活函数为 ReLU</li>
+<li>输出层（全连接层）：1 个神经元，激活函数为 Sigmoid</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential()</span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">12</span>, input_dim=<span class="number">8</span>, activation=<span class="string">&#x27;relu&#x27;</span>)) <span class="comment"># 全连接层</span></span><br><span class="line">model.add(tf.keras.layers.Dense(<span class="number">1</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>)) <span class="comment"># 输出层</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模型编译"><a href="#模型编译" class="headerlink" title="模型编译"></a>模型编译</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">compile</span>(loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>, optimizer=<span class="string">&#x27;adam&#x27;</span>, metrics=[<span class="string">&#x27;accuracy&#x27;</span>]) <span class="comment"># binary_crossentropy计算两个概率分布之间的交叉熵损失</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history = model.fit(X_train, Y_train, epochs=<span class="number">100</span>, batch_size=<span class="number">10</span>) <span class="comment"># 训练数据进行训练</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Epoch 1/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3984 - accuracy: 0.8046
+Epoch 2/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3968 - accuracy: 0.8078
+Epoch 3/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3964 - accuracy: 0.8062
+Epoch 4/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3942 - accuracy: 0.8094
+Epoch 5/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3936 - accuracy: 0.8143
+Epoch 6/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3924 - accuracy: 0.8127
+Epoch 7/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3915 - accuracy: 0.8127
+Epoch 8/100
+62/62 [==============================] - 0s 2ms/step - loss: 0.3913 - accuracy: 0.8160
+Epoch 9/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3912 - accuracy: 0.8111
+Epoch 10/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3897 - accuracy: 0.8094
+Epoch 11/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3892 - accuracy: 0.8143
+Epoch 12/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3886 - accuracy: 0.8111
+Epoch 13/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3882 - accuracy: 0.8127
+Epoch 14/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3875 - accuracy: 0.8143
+Epoch 15/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3871 - accuracy: 0.8192
+Epoch 16/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3867 - accuracy: 0.8111
+Epoch 17/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3868 - accuracy: 0.8078
+Epoch 18/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3859 - accuracy: 0.8143
+Epoch 19/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3852 - accuracy: 0.8160
+Epoch 20/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3846 - accuracy: 0.8160
+Epoch 21/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3841 - accuracy: 0.8111
+Epoch 22/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3841 - accuracy: 0.8143
+Epoch 23/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3835 - accuracy: 0.8127
+Epoch 24/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3832 - accuracy: 0.8208
+Epoch 25/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3828 - accuracy: 0.8208
+Epoch 26/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3824 - accuracy: 0.8176
+Epoch 27/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3827 - accuracy: 0.8192
+Epoch 28/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3811 - accuracy: 0.8192
+Epoch 29/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3813 - accuracy: 0.8225
+Epoch 30/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3811 - accuracy: 0.8192
+Epoch 31/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3812 - accuracy: 0.8225
+Epoch 32/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3802 - accuracy: 0.8208
+Epoch 33/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3808 - accuracy: 0.8176
+Epoch 34/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3796 - accuracy: 0.8241
+Epoch 35/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3791 - accuracy: 0.8274
+Epoch 36/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3790 - accuracy: 0.8257
+Epoch 37/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3786 - accuracy: 0.8257
+Epoch 38/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3782 - accuracy: 0.8208
+Epoch 39/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3781 - accuracy: 0.8257
+Epoch 40/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3774 - accuracy: 0.8257
+Epoch 41/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3777 - accuracy: 0.8257
+Epoch 42/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3770 - accuracy: 0.8225
+Epoch 43/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3761 - accuracy: 0.8257
+Epoch 44/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3762 - accuracy: 0.8274
+Epoch 45/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3761 - accuracy: 0.8306
+Epoch 46/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3759 - accuracy: 0.8241
+Epoch 47/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3751 - accuracy: 0.8274
+Epoch 48/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3747 - accuracy: 0.8274
+Epoch 49/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3752 - accuracy: 0.8225
+Epoch 50/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3744 - accuracy: 0.8257
+Epoch 51/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3740 - accuracy: 0.8274
+Epoch 52/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3741 - accuracy: 0.8241
+Epoch 53/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3743 - accuracy: 0.8225
+Epoch 54/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3736 - accuracy: 0.8257
+Epoch 55/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3732 - accuracy: 0.8274
+Epoch 56/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3729 - accuracy: 0.8274
+Epoch 57/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3726 - accuracy: 0.8257
+Epoch 58/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3725 - accuracy: 0.8241
+Epoch 59/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3722 - accuracy: 0.8274
+Epoch 60/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3719 - accuracy: 0.8306
+Epoch 61/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3718 - accuracy: 0.8274
+Epoch 62/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3718 - accuracy: 0.8290
+Epoch 63/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3709 - accuracy: 0.8290
+Epoch 64/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3715 - accuracy: 0.8257
+Epoch 65/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3705 - accuracy: 0.8274
+Epoch 66/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3706 - accuracy: 0.8241
+Epoch 67/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3706 - accuracy: 0.8306
+Epoch 68/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3705 - accuracy: 0.8290
+Epoch 69/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3697 - accuracy: 0.8274
+Epoch 70/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3695 - accuracy: 0.8290
+Epoch 71/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3696 - accuracy: 0.8274
+Epoch 72/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3694 - accuracy: 0.8274
+Epoch 73/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3695 - accuracy: 0.8290
+Epoch 74/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3690 - accuracy: 0.8257
+Epoch 75/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3688 - accuracy: 0.8290
+Epoch 76/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3690 - accuracy: 0.8306
+Epoch 77/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3690 - accuracy: 0.8257
+Epoch 78/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3685 - accuracy: 0.8306
+Epoch 79/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3687 - accuracy: 0.8290
+Epoch 80/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3683 - accuracy: 0.8241
+Epoch 81/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3683 - accuracy: 0.8290
+Epoch 82/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3686 - accuracy: 0.8274
+Epoch 83/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3678 - accuracy: 0.8241
+Epoch 84/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3675 - accuracy: 0.8290
+Epoch 85/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3672 - accuracy: 0.8290
+Epoch 86/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3669 - accuracy: 0.8290
+Epoch 87/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3677 - accuracy: 0.8306
+Epoch 88/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3675 - accuracy: 0.8290
+Epoch 89/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3667 - accuracy: 0.8322
+Epoch 90/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3670 - accuracy: 0.8306
+Epoch 91/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3674 - accuracy: 0.8290
+Epoch 92/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3665 - accuracy: 0.8322
+Epoch 93/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3665 - accuracy: 0.8306
+Epoch 94/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3665 - accuracy: 0.8290
+Epoch 95/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3663 - accuracy: 0.8306
+Epoch 96/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3663 - accuracy: 0.8274
+Epoch 97/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3662 - accuracy: 0.8290
+Epoch 98/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3668 - accuracy: 0.8274
+Epoch 99/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3663 - accuracy: 0.8306
+Epoch 100/100
+62/62 [==============================] - 0s 1ms/step - loss: 0.3655 - accuracy: 0.8290
+</code></pre>
+<h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss, accuracy = model.evaluate(X_test, Y_test) <span class="comment"># 测试集测试</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\nLoss: %.2f, Accuracy: %.2f%%&quot;</span> % (loss, accuracy*<span class="number">100</span>)) </span><br></pre></td></tr></table></figure>
+
+<pre><code>5/5 [==============================] - 0s 2ms/step - loss: 0.5547 - accuracy: 0.7338
+
+Loss: 0.55, Accuracy: 73.38%
+</code></pre>
+<h3 id="模型保存"><a href="#模型保存" class="headerlink" title="模型保存"></a>模型保存</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.save(<span class="string">&quot;my_model.h5&quot;</span>) <span class="comment"># 保存整个模型</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.save_weights(<span class="string">&quot;my_save_weights&quot;</span>) <span class="comment"># 保存模型的权重和偏置</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.load_weights(<span class="string">&#x27;my_save_weights&#x27;</span>) <span class="comment"># 恢复权重</span></span><br></pre></td></tr></table></figure>
+
+
+<pre><code>&lt;tensorflow.python.checkpoint.checkpoint.CheckpointLoadStatus at 0x26272782790&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restored_model = tf.keras.models.load_model(<span class="string">&quot;my_model.h5&quot;</span>) <span class="comment"># 加载模型</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="构造神经网络预测MNITS数据集"><a href="#构造神经网络预测MNITS数据集" class="headerlink" title="构造神经网络预测MNITS数据集"></a>构造神经网络预测MNITS数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.layers <span class="keyword">import</span> Flatten, Dense, Dropout</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载MNIST数据集</span></span><br><span class="line">(x_train, y_train),(x_test, y_test) = keras.datasets.mnist.load_data()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将像素值缩放到[0,1]范围内</span></span><br><span class="line">x_train = x_train.astype(<span class="string">&#x27;float32&#x27;</span>) / <span class="number">255.0</span></span><br><span class="line">x_test = x_test.astype(<span class="string">&#x27;float32&#x27;</span>) / <span class="number">255.0</span></span><br><span class="line"></span><br><span class="line">model = tf.keras.models.Sequential([</span><br><span class="line">  tf.keras.layers.Flatten(input_shape=(<span class="number">28</span>, <span class="number">28</span>)),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">128</span>, activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">  tf.keras.layers.Dropout(<span class="number">0.2</span>),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">model.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>,</span><br><span class="line">              loss=<span class="string">&#x27;sparse_categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line"></span><br><span class="line">model.fit(x_train, y_train, epochs=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">model.evaluate(x_test, y_test, verbose=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Epoch 1/5
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2954 - accuracy: 0.9144
+Epoch 2/5
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1427 - accuracy: 0.9574
+Epoch 3/5
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1089 - accuracy: 0.9675
+Epoch 4/5
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0878 - accuracy: 0.9726
+Epoch 5/5
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0753 - accuracy: 0.9765
+313/313 - 0s - loss: 0.0808 - accuracy: 0.9761 - 457ms/epoch - 1ms/step
+
+[0.08081192523241043, 0.9761000275611877]
+</code></pre>
+<h3 id="修改网络参数，提高模型性能"><a href="#修改网络参数，提高模型性能" class="headerlink" title="修改网络参数，提高模型性能"></a>修改网络参数，提高模型性能</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">model2 = tf.keras.models.Sequential([</span><br><span class="line">  tf.keras.layers.Flatten(input_shape=(<span class="number">28</span>, <span class="number">28</span>)),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">128</span>, activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">  tf.keras.layers.Dropout(<span class="number">0.2</span>),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">64</span>, activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">  tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">model2.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>,</span><br><span class="line">              loss=<span class="string">&#x27;sparse_categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line"></span><br><span class="line">model2.fit(x_train, y_train, epochs=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">model2.evaluate(x_test, y_test, verbose=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Epoch 1/20
+1875/1875 [==============================] - 5s 2ms/step - loss: 0.2821 - accuracy: 0.9161
+Epoch 2/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1350 - accuracy: 0.9587
+Epoch 3/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1073 - accuracy: 0.9665
+Epoch 4/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0874 - accuracy: 0.9723
+Epoch 5/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0754 - accuracy: 0.9760
+Epoch 6/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0679 - accuracy: 0.9783
+Epoch 7/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0598 - accuracy: 0.9806
+Epoch 8/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0565 - accuracy: 0.9815
+Epoch 9/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0488 - accuracy: 0.9834
+Epoch 10/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0478 - accuracy: 0.9840
+Epoch 11/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0429 - accuracy: 0.9865
+Epoch 12/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0426 - accuracy: 0.9858
+Epoch 13/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0416 - accuracy: 0.9863
+Epoch 14/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0376 - accuracy: 0.9873
+Epoch 15/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0366 - accuracy: 0.9874
+Epoch 16/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0356 - accuracy: 0.9878
+Epoch 17/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0335 - accuracy: 0.9888
+Epoch 18/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0319 - accuracy: 0.9893
+Epoch 19/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0324 - accuracy: 0.9890
+Epoch 20/20
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.0307 - accuracy: 0.9896
+313/313 - 0s - loss: 0.0815 - accuracy: 0.9804 - 471ms/epoch - 2ms/step
+
+[0.0815410241484642, 0.980400025844574]
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://happymcr.gitee.io">Ma Chenru</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://happymcr.gitee.io/2024/05/25/tensorflow%E7%BB%83%E4%B9%A0/">https://happymcr.gitee.io/2024/05/25/tensorflow%E7%BB%83%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://happymcr.gitee.io" target="_blank">小马快跑</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar2.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/25/pytorch%E7%BB%83%E4%B9%A0/" title="Pytorch基本语法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Pytorch基本语法</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ma Chenru</div><div class="author-info__description">Welcom to my blog!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://gitee.com/happymcr/myblog"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">导包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TensorFlow%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">TensorFlow常用基本函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-zeros"><span class="toc-number">2.1.</span> <span class="toc-text">tf.zeros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-ones"><span class="toc-number">2.2.</span> <span class="toc-text">tf.ones</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-eye"><span class="toc-number">2.3.</span> <span class="toc-text">tf.eye</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-fill"><span class="toc-number">2.4.</span> <span class="toc-text">tf.fill</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-random-normal"><span class="toc-number">2.5.</span> <span class="toc-text">tf.random.normal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-random-truncated-normal"><span class="toc-number">2.6.</span> <span class="toc-text">tf.random.truncated_normal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-random-uniform"><span class="toc-number">2.7.</span> <span class="toc-text">tf.random.uniform</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-random-shuffle"><span class="toc-number">2.8.</span> <span class="toc-text">tf.random.shuffle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-strings-to-number"><span class="toc-number">2.9.</span> <span class="toc-text">tf.strings.to_number</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf1-to-double"><span class="toc-number">2.10.</span> <span class="toc-text">tf1.to_double</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf1-to-float"><span class="toc-number">2.11.</span> <span class="toc-text">tf1.to_float</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf1-to-int32"><span class="toc-number">2.12.</span> <span class="toc-text">tf1.to_int32</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf1-to-int64"><span class="toc-number">2.13.</span> <span class="toc-text">tf1.to_int64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-cast"><span class="toc-number">2.14.</span> <span class="toc-text">tf.cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-shape"><span class="toc-number">2.15.</span> <span class="toc-text">tf.shape</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-size"><span class="toc-number">2.16.</span> <span class="toc-text">tf.size</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-rank"><span class="toc-number">2.17.</span> <span class="toc-text">tf.rank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-reshape"><span class="toc-number">2.18.</span> <span class="toc-text">tf.reshape</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-expand-dims"><span class="toc-number">2.19.</span> <span class="toc-text">tf.expand_dims</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-slice"><span class="toc-number">2.20.</span> <span class="toc-text">tf.slice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-split"><span class="toc-number">2.21.</span> <span class="toc-text">tf.split</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-concat"><span class="toc-number">2.22.</span> <span class="toc-text">tf.concat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-stack"><span class="toc-number">2.23.</span> <span class="toc-text">tf.stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-reverse"><span class="toc-number">2.24.</span> <span class="toc-text">tf.reverse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-transpose"><span class="toc-number">2.25.</span> <span class="toc-text">tf.transpose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-gather"><span class="toc-number">2.26.</span> <span class="toc-text">tf.gather</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-one-hot"><span class="toc-number">2.27.</span> <span class="toc-text">tf.one_hot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-unique"><span class="toc-number">2.28.</span> <span class="toc-text">tf.unique</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-linalg-diag"><span class="toc-number">2.29.</span> <span class="toc-text">tf.linalg.diag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-linalg-trace"><span class="toc-number">2.30.</span> <span class="toc-text">tf.linalg.trace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-linalg-det"><span class="toc-number">2.31.</span> <span class="toc-text">tf.linalg.det</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-matmul"><span class="toc-number">2.32.</span> <span class="toc-text">tf.matmul</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-complex"><span class="toc-number">2.33.</span> <span class="toc-text">tf.complex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-abs"><span class="toc-number">2.34.</span> <span class="toc-text">tf.abs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tf-math-conj"><span class="toc-number">2.35.</span> <span class="toc-text">tf.math.conj</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%A2%84%E6%B5%8B%E7%B3%96%E5%B0%BF%E7%97%85%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text">构造神经网络预测糖尿病数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E4%B8%8E%E5%A4%84%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">数据导入与处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">模型结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BC%96%E8%AF%91"><span class="toc-number">3.3.</span> <span class="toc-text">模型编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">3.4.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0"><span class="toc-number">3.5.</span> <span class="toc-text">模型评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98"><span class="toc-number">3.6.</span> <span class="toc-text">模型保存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E9%A2%84%E6%B5%8BMNITS%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.</span> <span class="toc-text">构造神经网络预测MNITS数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%EF%BC%8C%E6%8F%90%E9%AB%98%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD"><span class="toc-number">4.1.</span> <span class="toc-text">修改网络参数，提高模型性能</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/25/tensorflow%E7%BB%83%E4%B9%A0/" title="TensorFlow练习">TensorFlow练习</a><time datetime="2024-05-25T10:05:40.419Z" title="发表于 2024-05-25 18:05:40">2024-05-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/25/pytorch%E7%BB%83%E4%B9%A0/" title="Pytorch基本语法">Pytorch基本语法</a><time datetime="2024-05-25T09:58:52.802Z" title="发表于 2024-05-25 17:58:52">2024-05-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/25/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96%E5%B9%B3%E5%8F%B0/" title="苍穹外卖平台开发">苍穹外卖平台开发</a><time datetime="2024-05-25T07:06:35.787Z" title="发表于 2024-05-25 15:06:35">2024-05-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/25/%E8%82%A1%E7%A5%A8%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%8A%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AE%9E%E7%8E%B0/" title="股票大数据分析及可视化实现">股票大数据分析及可视化实现</a><time datetime="2024-05-25T06:13:26.805Z" title="发表于 2024-05-25 14:13:26">2024-05-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/20/%E8%BD%BB%E6%9D%BE%E4%B8%8A%E6%89%8Bpandas/" title="轻松上手pandas">轻松上手pandas</a><time datetime="2024-03-20T11:51:55.034Z" title="发表于 2024-03-20 19:51:55">2024-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/background2.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By Ma Chenru</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'b2byQstp3OuhBuRc8oGNq5ct-gzGzoHsz',
+      appKey: 'JYgn2iygZCQtzyVtpY7rNPcA',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="9371835077" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-lrctype="1"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
